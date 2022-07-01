@@ -1,7 +1,7 @@
 class Vector2D {
-  private x: number;
+  public x: number;
 
-  private y: number;
+  public y: number;
 
   constructor(x: number, y: number) {
     this.x = x;
