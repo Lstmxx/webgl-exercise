@@ -26,19 +26,66 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/three.js/index.vue'),
     children: [
       {
-        name: 'example1',
-        path: 'example1',
-        component: () => import('../views/three.js/example1.vue'),
+        name: 'BasicExample1',
+        path: 'basic-example1',
+        component: () => import('../views/three.js/basic/example1.vue'),
       },
       {
-        name: 'example2',
-        path: 'example2',
-        component: () => import('../views/three.js/example2.vue'),
+        name: 'BasicExample2',
+        path: 'basic-example2',
+        component: () => import('../views/three.js/basic/example2.vue'),
       },
       {
-        name: 'example3',
-        path: 'example3',
-        component: () => import('../views/three.js/example3.vue'),
+        name: 'BasicExample3',
+        path: 'basic-example3',
+        component: () => import('../views/three.js/basic/example3.vue'),
+      },
+      {
+        name: 'ControlsExample1',
+        path: 'controls-example1',
+        component: () => import('../views/three.js/controls/example1.vue'),
+      },
+      {
+        name: 'MaterialExample1',
+        path: 'material-example1',
+        component: () => import('../views/three.js/material/example1.vue'),
+      },
+      {
+        name: 'GeometryExample1',
+        path: 'geometry-example1',
+        component: () => import('../views/three.js/geometry/example1.vue'),
+      },
+    ],
+  },
+  {
+    path: '/visualization-learn',
+    name: 'VisualizationLearn',
+    component: () => import('../views/visualization-learn/index.vue'),
+    children: [
+      {
+        name: 'VisualizationLearn01',
+        path: '01',
+        component: () => import('../views/visualization-learn/01/index.vue'),
+      },
+      {
+        name: 'VisualizationLearn02',
+        path: '02',
+        component: () => import('../views/visualization-learn/02/index.vue'),
+      },
+      {
+        name: 'VisualizationLearn03',
+        path: '03',
+        component: () => import('../views/visualization-learn/03/index.vue'),
+      },
+      {
+        name: 'VisualizationLearn04',
+        path: '04',
+        component: () => import('../views/visualization-learn/04/index.vue'),
+      },
+      {
+        name: 'VisualizationLearn05',
+        path: '05',
+        component: () => import('../views/visualization-learn/05/index.vue'),
       },
     ],
   },
