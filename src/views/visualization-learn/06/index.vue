@@ -12,7 +12,7 @@ let width = 0;
 const length = (point: number[]) => Math.hypot(point[0], point[1]);
 
 // 向量点乘
-const dot = (aPoint: number[], bPoint: number[]) => aPoint[0] * bPoint[0] + aPoint[1] + bPoint[1];
+const dot = (aPoint: number[], bPoint: number[]) => aPoint[0] * bPoint[0] + aPoint[1] * bPoint[1];
 
 // 向量叉乘
 const cross = (aPoint: number[], bPoint: number[]) => aPoint[0] * bPoint[1] - aPoint[1] * bPoint[0];
@@ -35,7 +35,7 @@ const getEndPoint = (v: number[], start: number[]) => v.map((val, index) => val 
 const getVector = (
   aPoint: number[],
   bPoint: number[],
-) => aPoint.map((val, index) => val - bPoint[index]);
+) => bPoint.map((val, index) => val - aPoint[index]);
 
 const drawLine = (aPoint: number[], bPoint: number[], strokeStyle: string, lineDash: number[]) => {
   if (!ctx) return;
@@ -110,6 +110,40 @@ const draw = () => {
   drawText('P', P, 10, '20px', 'red');
   drawText('Q', Q, 10, '20px', 'green');
   drawText('R', R, 10, '20px', 'blue');
+
+  const nVQR = normalize(vQR);
+  const nVQRColor = randomColor();
+  drawCircle(nVQR, nVQRColor);
+  drawText('nVQR', nVQR, 10, '20px', nVQRColor);
+
+  const dotValue = dot(vQP, nVQR);
+
+  const ret = scale(dotValue / length(vQR), vQR);
+
+  drawCircle(ret, 'yellow');
+  drawText('RET', ret, 10, '20px', 'yellow');
+
+  const pnt = getEndPoint(ret, Q);
+  drawCircle(pnt, 'purple');
+  drawText('PNT', pnt, 10, '20px', 'purple');
+
+  drawLine(P, pnt, 'red', []);
+
+  // 点到线的距离
+  const v1 = getVector(Q, pnt);
+  const v2 = getVector(R, pnt);
+
+  const value1 = dot(v1, v2);
+
+  if (value1 > 0) {
+    const vQPLength = length(vQP);
+    const vPRLength = length(vPR);
+    if (vQPLength > vPRLength) {
+      drawLine(P, R, 'red', []);
+    } else {
+      drawLine(P, Q, 'red', []);
+    }
+  }
 };
 
 const init = () => {
