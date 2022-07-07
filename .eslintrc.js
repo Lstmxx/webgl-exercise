@@ -13,6 +13,7 @@ module.exports = {
   },
   rules: {
     'linebreak-style': 'off', // 回车换行风格
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
   },
