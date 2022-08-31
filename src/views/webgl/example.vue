@@ -194,7 +194,10 @@ export default defineComponent({
       const shaderProgram = initShader(glContext.value, vsSource, fsSource);
       if (!shaderProgram) return;
       programInfo.value.program = shaderProgram;
-      programInfo.value.attribLocations.vertexPosition = glContext.value.getAttribLocation(shaderProgram, 'aVertexPosition');
+      programInfo.value.attribLocations.vertexPosition = glContext.value.getAttribLocation(
+        shaderProgram,
+        'aVertexPosition',
+      );
       programInfo.value.attribLocations.vertexColorAttribute = glContext.value.getAttribLocation(
         shaderProgram,
         'aVertexColor',

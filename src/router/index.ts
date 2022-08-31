@@ -93,9 +93,19 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../views/visualization-learn/06/index.vue'),
       },
       {
-        name: 'VisualizationLearn06',
+        name: 'VisualizationLearn07',
         path: '07',
         component: () => import('../views/visualization-learn/07/index.vue'),
+      },
+      {
+        name: 'VisualizationLearn08',
+        path: '08',
+        component: () => import('../views/visualization-learn/08/index.vue'),
+      },
+      {
+        name: 'VisualizationLearn09',
+        path: '09',
+        component: () => import('../views/visualization-learn/09/index.vue'),
       },
     ],
   },
