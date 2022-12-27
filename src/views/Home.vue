@@ -1,18 +1,40 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <a class="route" v-for="(route, index) in routes" :key="index" @click="handleRoute(route.path)">
+      {{ route.name }}
+    </a>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+<script lang="ts" setup>
+import { computed, watch } from 'vue';
+import { useRouter } from 'vue-router';
 
-export default defineComponent({
-  name: 'Home',
-  components: {
-    HelloWorld,
-  },
+const router = useRouter();
+
+const routes = computed(() => router.getRoutes());
+
+watch(() => [routes], () => {
+  console.log('routes', routes.value);
+}, {
+  immediate: true,
 });
+
+const handleRoute = (path: string) => {
+  router.push({
+    path,
+  });
+};
+
 </script>
+
+<style lang="scss">
+.home {
+  display: flex;
+  flex-direction: column;
+  .route {
+    margin-top: 10px;
+    cursor: pointer;
+  }
+}
+</style>
