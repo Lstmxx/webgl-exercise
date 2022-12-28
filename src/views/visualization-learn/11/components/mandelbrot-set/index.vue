@@ -3,13 +3,14 @@ import { onMounted } from 'vue';
 import Vertex from './vertex.glsl';
 import Fragment from './fragment.glsl';
 
+const CANVAS_ID = 'mandelbrot-set';
 let glContext: WebGLRenderingContext | null = null;
 let vertexShader: WebGLShader | null = null;
 let fragmentShader: WebGLShader | null = null;
 let program: WebGLProgram | null = null;
 
 const initGLContext = () => {
-  const canvas = document.getElementById('repeat-canvas') as HTMLCanvasElement;
+  const canvas = document.getElementById(CANVAS_ID) as HTMLCanvasElement;
   glContext = canvas.getContext('webgl');
 };
 
@@ -55,8 +56,12 @@ const initProgram = () => {
 
 const setUniforms = () => {
   if (!glContext || !program) return;
-  const loc = glContext.getUniformLocation(program, 'rows');
-  glContext.uniform1f(loc, 40);
+  let loc = glContext.getUniformLocation(program, 'center');
+  glContext.uniform2fv(loc, [0, 0]);
+  loc = glContext.getUniformLocation(program, 'scale');
+  glContext.uniform1f(loc, 1);
+  loc = glContext.getUniformLocation(program, 'iterations');
+  glContext.uniform1i(loc, 256);
 };
 
 const drawBuffer = () => {
@@ -113,8 +118,8 @@ onMounted(() => {
 
 <template>
   <div class="repeat">
-    <h1>重复格子</h1>
-    <canvas id="repeat-canvas" width="600" height="600"></canvas>
+    <h1>曼德勃罗特集</h1>
+    <canvas :id="CANVAS_ID" width="600" height="600"></canvas>
   </div>
 </template>
 
