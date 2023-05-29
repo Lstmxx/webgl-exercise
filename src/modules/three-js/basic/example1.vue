@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script lang="tsx">
+<script lang="ts">
 import { defineComponent, onMounted } from 'vue';
 import * as THREE from 'three';
 

@@ -2,6 +2,11 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: '/',
+    name: 'index',
+    component: () => import('@/core/layout/index.vue'),
+  },
+  {
     path: '/threeJs',
     name: 'threeJs',
     component: () => import('@/core/layout/index.vue'),
