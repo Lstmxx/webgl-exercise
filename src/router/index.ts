@@ -31,6 +31,16 @@ const routes: Array<RouteRecordRaw> = [
         path: 'basic-example4',
         component: () => import('../modules/three-js/basic/example4.vue'),
       },
+      {
+        name: 'BasicExample5',
+        path: 'basic-example5',
+        component: () => import('../modules/three-js/basic/example5.vue'),
+      },
+      {
+        name: 'BufferGeometry',
+        path: 'buffer-geometry',
+        component: () => import('../modules/three-js/basic/buffer-geometry.vue'),
+      },
     ],
   },
   {

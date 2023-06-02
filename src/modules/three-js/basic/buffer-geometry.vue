@@ -3,22 +3,60 @@ import * as THREE from 'three';
 import { onMounted } from 'vue';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'three/examples/jsm/libs/stats.module';
+// import { GUI } from 'dat.gui';
 
-// const createLambertGeometry = (scene: THREE.Scene) => {
-//   const geometry = new THREE.BoxGeometry(100, 60, 30);
-//   const material = new THREE.MeshLambertMaterial();
-//   const mesh = new THREE.Mesh(geometry, material);
-//   scene.add(mesh);
-//   return mesh;
-// };
+const createGeometry = (scene: THREE.Scene) => {
+  // const geometry = new THREE.BufferGeometry();
+  // const vertices = new Float32Array([
+  //   0, 0, 0, //顶点1坐标
+  //   50, 0, 0, //顶点2坐标
+  //   0, 100, 0, //顶点3坐标
+  //   0, 0, 10, //顶点4坐标
+  //   0, 0, 100, //顶点5坐标
+  //   50, 0, 10, //顶点6坐标
+  // ]);
+  // const attributes = new THREE.BufferAttribute(vertices, 3);
+  // geometry.attributes.position = attributes;
 
-const createPhongGeometry = (scene: THREE.Scene) => {
-  const geometry = new THREE.BoxGeometry(100, 60, 30);
-  const material = new THREE.MeshPhongMaterial();
+  // const material = new THREE.PointsMaterial({
+  //   color: 0xffff00,
+  //   size: 10.0,
+  // });
+  // const points = new THREE.Points(geometry, material);
+  // scene.add(points);
+
+  // const lineMaterial = new THREE.LineBasicMaterial({
+  //   color: 0xff0000
+  // });
+  // const line = new THREE.LineSegments(geometry, lineMaterial);
+  // scene.add(line);
+
+  // const v = new Float32Array([
+  //   0, 0, 0, //顶点1坐标
+  //   80, 0, 0, //顶点2坐标
+  //   80, 80, 0, //顶点3坐标
+  //   0, 80, 0, //顶点4坐标
+  // ]);
+  // const attribute = new THREE.BufferAttribute(v, 3);
+  // geometry.attributes.position = attribute;
+  // geometry.index = new THREE.BufferAttribute(new Uint16Array([
+  //   0, 1, 2, 0, 2, 3,
+  // ]), 1);
+  // const m = new THREE.MeshLambertMaterial({
+  //   color: 0x0000ff, 
+  //   side: THREE.DoubleSide, //两面可见
+  // });
+  // scene.add(new THREE.LineLoop(geometry, m));
+  const geometry = new THREE.SphereGeometry(100, 32, 16);
+  console.log('几何体', geometry);
+  console.log('顶点位置', geometry.attributes.position);
+  console.log('顶点索引', geometry.index);
+  const material = new THREE.MeshLambertMaterial({
+    color: 0x00ffff,
+    wireframe: true,//线条模式渲染mesh对应的三角形数据
+  });
   const mesh = new THREE.Mesh(geometry, material);
-  mesh.position.set(100, 60, 30);
   scene.add(mesh);
-  return mesh;
 };
 
 const initControls = (camera: THREE.Camera, renderer: THREE.WebGLRenderer, cb: () => void) => {
@@ -43,18 +81,15 @@ const init = () => {
   if (!dom) return;
 
   const height = dom.clientHeight;
-    const width = dom.clientWidth;
+  const width = dom.clientWidth;
   const scene = new THREE.Scene();
 
   const axesHelper = new THREE.AxesHelper(150);
   scene.add(axesHelper);
   
-  // createLambertGeometry(scene);
-  createPhongGeometry(scene);
+  createGeometry(scene);
 
-  // const width = 800;
-  // const height = 500;
-  const camera = new THREE.PerspectiveCamera(60, width / height, 1, 3000);
+  const camera = new THREE.PerspectiveCamera(60, width / height, 1, 8000);
   camera.position.set(100, 100, 100);
   camera.lookAt(axesHelper.position);
   // camera.lookAt(lambertMesh.position);
@@ -69,7 +104,10 @@ const init = () => {
   const pointLightHelper = new THREE.PointLightHelper(pointLight, 150);
   scene.add(pointLightHelper);
 
-  const renderer = new THREE.WebGLRenderer();
+  const renderer = new THREE.WebGLRenderer({
+    antialias: true,
+  });
+  renderer.setClearColor(0x123456, 1);
   renderer.setSize(width, height);
 
   initStats(dom, renderer, scene, camera);  
