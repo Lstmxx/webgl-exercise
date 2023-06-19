@@ -57,6 +57,47 @@ const createGeometry = (scene: THREE.Scene) => {
   });
   const mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh);
+
+  const random = () => Number((Math.random() * 255).toFixed(0));
+  // const axis = new THREE.Vector3(0, 1, 0)
+
+  const isPlusOrM = (current: number, target: number, distance = 1) => {
+    const dis = Math.abs(current - target)
+    const minDistance = dis > distance ? distance : dis;
+
+    return current > target ? -minDistance : minDistance;
+  };
+
+  const changeColor = (curColor: THREE.Color, targetColor: THREE.Color) => {
+    curColor.r += isPlusOrM(curColor.r, targetColor.r, 7);
+    curColor.b += isPlusOrM(curColor.b, targetColor.b, 7);
+    curColor.g += isPlusOrM(curColor.g, targetColor.g, 7);
+
+    if (curColor.r === targetColor.r && curColor.g === targetColor.g && curColor.b === targetColor.b) {
+      targetColor.setRGB(random(), random(), random());
+    }
+  };
+
+  const color = new THREE.Color();
+  color.setRGB(random(), random(), random());
+  
+  const targetColor = new THREE.Color();
+  targetColor.setRGB(random(), random(), random());
+  const render = () => {
+    mesh.rotation.y += 0.01;
+    mesh.rotation.x += 0.01;
+    mesh.rotation.z += 0.01;
+
+    changeColor(color, targetColor);
+
+    // const color = `rgb(${random()},${random()},${random()})`;
+    console.log('rgb', color);
+    material.color.set(`rgb(${color.r},${color.g},${color.b})`);
+
+    console.log(material.color);
+    requestAnimationFrame(render);
+  };
+  render();
 };
 
 const initControls = (camera: THREE.Camera, renderer: THREE.WebGLRenderer, cb: () => void) => {
@@ -118,6 +159,8 @@ const init = () => {
     renderer.render(scene, camera);
     console.log('camera.position', camera.position);
   });
+
+  
 
   window.onresize = () => {
     const dom = document.getElementById('three');
